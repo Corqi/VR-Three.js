@@ -1,5 +1,6 @@
 import * as THREE from 'three';
 import {VRButton} from 'three/addons/webxr/VRButton.js';
+import {GLTFLoader} from 'https://cdn.jsdelivr.net/npm/three@0.118.1/examples/jsm/loaders/GLTFLoader.js';
 
 import {OrbitControls} from 'https://cdn.jsdelivr.net/npm/three@0.118/examples/jsm/controls/OrbitControls.js';
 
@@ -62,6 +63,9 @@ function main() {
 
   scene.add( smesh );
 
+  //add train model
+  loadModel();
+
   //orbitcontroller for testing
   const controls = new OrbitControls(
     camera, renderer.domElement);
@@ -97,6 +101,18 @@ function main() {
   }
 
   renderer.setAnimationLoop(render);
+
+  function loadModel() {
+    const loader = new GLTFLoader();
+    loader.load('./resources/train.gltf', (gltf) => {
+      gltf.scene.traverse(c => {
+        c.castShadow = true;
+      });
+      gltf.scene.scale.set(1,1,1);
+      gltf.scene.position.y = 0.01;
+      scene.add(gltf.scene);
+    });
+  }
 }
 
 main();

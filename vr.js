@@ -15,7 +15,7 @@ function main() {
   const near = 0.1;
   const far = 1000;
   const camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
-  camera.position.set(0, 1.6, 0);
+  camera.position.set(0.2, 1.1, -0.65);
 
   const scene = new THREE.Scene();
 
@@ -45,6 +45,7 @@ function main() {
   //controller for PC camera
   const controls = new FirstPersonControls(camera, renderer.domElement);
   controls.lookSpeed = 0.5;
+  controls.movementSpeed = 0.0;
   
     
   function resizeRendererToDisplaySize(renderer) {
@@ -60,7 +61,7 @@ function main() {
 
   function render(time) {
     time *= 0.001;
-
+    
     controls.update(0.001);
 
     if (resizeRendererToDisplaySize(renderer)) {
@@ -76,7 +77,7 @@ function main() {
 
   function loadModel() {
     const loader = new GLTFLoader();
-    loader.load('./resources/train.gltf', (gltf) => {
+    loader.load('./resources/train2.gltf', (gltf) => {
       gltf.scene.traverse(c => {
         c.castShadow = true;
       });

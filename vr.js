@@ -2,7 +2,7 @@ import * as THREE from 'three';
 import {VRButton} from 'three/addons/webxr/VRButton.js';
 import {GLTFLoader} from 'https://cdn.jsdelivr.net/npm/three@0.118.1/examples/jsm/loaders/GLTFLoader.js';
 
-import {OrbitControls} from 'https://cdn.jsdelivr.net/npm/three@0.118/examples/jsm/controls/OrbitControls.js';
+import {FirstPersonControls} from 'https://cdn.jsdelivr.net/npm/three@0.118/examples/jsm/controls/FirstPersonControls.js';
 
 function main() {
   const canvas = document.querySelector('#c');
@@ -42,9 +42,10 @@ function main() {
   //add train model
   loadModel();
 
-  //orbitcontroller for testing
-  const controls = new OrbitControls(
-    camera, renderer.domElement);
+  //controller for PC camera
+  const controls = new FirstPersonControls(camera, renderer.domElement);
+  controls.lookSpeed = 0.5;
+  
     
   function resizeRendererToDisplaySize(renderer) {
     const canvas = renderer.domElement;
@@ -59,6 +60,8 @@ function main() {
 
   function render(time) {
     time *= 0.001;
+
+    controls.update(0.001);
 
     if (resizeRendererToDisplaySize(renderer)) {
       const canvas = renderer.domElement;

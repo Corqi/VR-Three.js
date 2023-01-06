@@ -48,6 +48,18 @@ function main() {
     makeInstance(geometry, 0xaa8844,  2),
   ];
 
+  //add skybox
+  var skybox = new THREE.SphereGeometry( 500, 60, 40 );
+  skybox.scale( - 1, 1, 1 );
+
+  var material = new THREE.MeshBasicMaterial( {
+    map: new THREE.TextureLoader().load( './resources/panorama.png' )
+  } );
+
+  var mesh = new THREE.Mesh( geometry, material );
+
+  scene.add( mesh );
+
   function resizeRendererToDisplaySize(renderer) {
     const canvas = renderer.domElement;
     const width = canvas.clientWidth;

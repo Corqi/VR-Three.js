@@ -1,6 +1,8 @@
 import * as THREE from 'three';
 import {VRButton} from 'three/addons/webxr/VRButton.js';
 
+import {OrbitControls} from 'https://cdn.jsdelivr.net/npm/three@0.118/examples/jsm/controls/OrbitControls.js';
+
 function main() {
   const canvas = document.querySelector('#c');
   const renderer = new THREE.WebGLRenderer({canvas});
@@ -10,7 +12,7 @@ function main() {
   const fov = 75;
   const aspect = 2;  // the canvas default
   const near = 0.1;
-  const far = 50;
+  const far = 1000;
   const camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
   camera.position.set(0, 1.6, 0);
 
@@ -52,14 +54,18 @@ function main() {
   var skybox = new THREE.SphereGeometry( 500, 60, 40 );
   skybox.scale( - 1, 1, 1 );
 
-  var material = new THREE.MeshBasicMaterial( {
+  var smaterial = new THREE.MeshBasicMaterial( {
     map: new THREE.TextureLoader().load( './resources/panorama.png' )
   } );
 
-  var mesh = new THREE.Mesh( geometry, material );
+  var smesh = new THREE.Mesh( skybox, smaterial );
 
-  scene.add( mesh );
+  scene.add( smesh );
 
+  //orbitcontroller for testing
+  const controls = new OrbitControls(
+    camera, renderer.domElement);
+    
   function resizeRendererToDisplaySize(renderer) {
     const canvas = renderer.domElement;
     const width = canvas.clientWidth;

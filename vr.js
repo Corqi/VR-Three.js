@@ -77,7 +77,7 @@ function main() {
 
   function loadModel() {
     const loader = new GLTFLoader();
-    loader.load('./resources/train2.gltf', (gltf) => {
+    loader.load('./resources/train.gltf', (gltf) => {
       gltf.scene.traverse(c => {
         c.castShadow = true;
       });

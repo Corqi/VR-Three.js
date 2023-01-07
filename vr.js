@@ -42,10 +42,10 @@ function main() {
   //add train model
   loadModel();
 
-  //controller for PC camera
-  const controls = new FirstPersonControls(camera, renderer.domElement);
-  controls.lookSpeed = 0.5;
-  controls.movementSpeed = 0.0;
+  // //controller for PC camera
+  // const controls = new FirstPersonControls(camera, renderer.domElement);
+  // controls.lookSpeed = 0.5;
+  // controls.movementSpeed = 0.0;
   
     
   function resizeRendererToDisplaySize(renderer) {
@@ -62,7 +62,7 @@ function main() {
   function render(time) {
     time *= 0.001;
     
-    controls.update(0.001);
+    // controls.update(0.001);
 
     if (resizeRendererToDisplaySize(renderer)) {
       const canvas = renderer.domElement;

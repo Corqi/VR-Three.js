@@ -16,7 +16,7 @@ function main() {
   const near = 0.1;
   const far = 1000;
   const camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
-  camera.position.set(0.2, 1.1, -0.65);
+  camera.position.set(0.2, 1.1 + 5.0, -0.65);
 
   const scene = new THREE.Scene();
 
@@ -47,18 +47,6 @@ function main() {
   // const controls = new FirstPersonControls(camera, renderer.domElement);
   // controls.lookSpeed = 0.5;
   // controls.movementSpeed = 0.0;
-
-  renderer.xr.addEventListener('sessionstart', () => {
-
-                renderer.xr.getCamera().position.copy( camera.position);
-
-                renderer.xr.getCamera().lookAt( camera.target );
-
-                //camera.position.copy(renderer.xr.getCamera().position);
-
-                console.log("pos", renderer.xr.getCamera().position);
-
-            });
     
   function resizeRendererToDisplaySize(renderer) {
     const canvas = renderer.domElement;
@@ -75,7 +63,6 @@ function main() {
     time *= 0.001;
     
     // controls.update(0.001);
-    renderer.xr.getCamera().position.y += 0.001;
 
     if (resizeRendererToDisplaySize(renderer)) {
       const canvas = renderer.domElement;

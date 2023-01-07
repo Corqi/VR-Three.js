@@ -2,7 +2,7 @@ import * as THREE from 'three';
 import {VRButton} from 'three/addons/webxr/VRButton.js';
 import {GLTFLoader} from 'https://cdn.jsdelivr.net/npm/three@0.118.1/examples/jsm/loaders/GLTFLoader.js';
 
-import {FirstPersonControls} from 'https://cdn.jsdelivr.net/npm/three@0.118/examples/jsm/controls/FirstPersonControls.js';
+import {OrbitControls} from 'https://cdn.jsdelivr.net/npm/three@0.118/examples/jsm/controls/OrbitControls.js';
 
 function main() {
   const canvas = document.querySelector('#c');
@@ -29,10 +29,11 @@ function main() {
 
   //fix bug where camera pos does not match vr camera pos
   const _camera = new THREE.Object3D();
-  _camera.position.set(0.2, 1.1, -0.75);
+  _camera.position.set(0.2, 1.1, -0.70);
   _camera.rotation.y = Math.PI;
   scene.add(_camera);
   _camera.add(camera);
+
 
   //add skybox
   var skybox = new THREE.SphereGeometry( 500, 60, 40 );
@@ -49,10 +50,10 @@ function main() {
   //add train model
   loadModel();
 
-  // //controller for PC camera
-  // const controls = new FirstPersonControls(camera, renderer.domElement);
-  // controls.lookSpeed = 0.5;
-  // controls.movementSpeed = 0.0;
+  //controller for PC camera
+  const controls = new OrbitControls( _camera, renderer.domElement );
+  controls.rotateSpeed *= -1;
+  controls.target.set(0.2, 1.11, -0.70);
     
   function resizeRendererToDisplaySize(renderer) {
     const canvas = renderer.domElement;
@@ -68,8 +69,6 @@ function main() {
   function render(time) {
     time *= 0.001;
     
-    // controls.update(0.001);
-
     if (resizeRendererToDisplaySize(renderer)) {
       const canvas = renderer.domElement;
       camera.aspect = canvas.clientWidth / canvas.clientHeight;
@@ -83,7 +82,7 @@ function main() {
 
   function loadModel() {
     const loader = new GLTFLoader();
-    loader.load('./resources/train_old.gltf', (gltf) => {
+    loader.load('./resources/train.gltf', (gltf) => {
       gltf.scene.traverse(c => {
         c.castShadow = true;
       });

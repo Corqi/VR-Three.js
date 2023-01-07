@@ -26,10 +26,11 @@ function main() {
   const near = 0.1;
   const far = 1000;
   const camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
-  // camera.position.set(0.2, 1.1, -0.65);
 
+  //fix bug where camera pos does not match vr camera pos
   const _camera = new THREE.Object3D();
-  _camera.position.set(0.2, 1.1, -0.65);
+  _camera.position.set(0.2, 1.1, -0.75);
+  _camera.rotation.y = Math.PI;
   scene.add(_camera);
   _camera.add(camera);
 

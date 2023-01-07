@@ -33,8 +33,8 @@ function main() {
   _camera.rotation.y = Math.PI;
   scene.add(_camera);
   _camera.add(camera);
-
-
+  
+  
   //add skybox
   var skybox = new THREE.SphereGeometry( 500, 60, 40 );
   skybox.scale( - 1, 1, 1 );
@@ -53,7 +53,8 @@ function main() {
   //controller for PC camera
   const controls = new OrbitControls( _camera, renderer.domElement );
   controls.rotateSpeed *= -1;
-  controls.target.set(0.2, 1.11, -0.70);
+  controls.target.set(0.2, 1.1, -0.7001);
+  controls.update();
     
   function resizeRendererToDisplaySize(renderer) {
     const canvas = renderer.domElement;

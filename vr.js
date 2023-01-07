@@ -8,6 +8,7 @@ function main() {
   const canvas = document.querySelector('#c');
   const renderer = new THREE.WebGLRenderer({canvas});
   renderer.xr.enabled = true;
+  renderer.xr.setReferenceSpaceType( 'local' );
   document.body.appendChild(VRButton.createButton(renderer));
 
   const fov = 75;
@@ -15,7 +16,7 @@ function main() {
   const near = 0.1;
   const far = 1000;
   const camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
-  //camera.position.set(0.2, 1.1, -0.65);
+  camera.position.set(0.2, 1.1, -0.65);
 
   const scene = new THREE.Scene();
 
@@ -82,7 +83,7 @@ function main() {
         c.castShadow = true;
       });
       gltf.scene.scale.set(1,1,1);
-      gltf.scene.position.set(-0.2, -1.1 + 2.0, 0.65);
+      gltf.scene.position.y = 0.01;
       scene.add(gltf.scene);
     });
   }

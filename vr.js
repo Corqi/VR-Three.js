@@ -29,7 +29,7 @@ function main() {
   scene.add(light2);
 
   //ambient light
-  const ambientLight = new THREE.AmbientLight(0x303030, 0.8);
+  const ambientLight = new THREE.AmbientLight(0x4B4B4B, 0.5);
   scene.add(ambientLight);
   
 

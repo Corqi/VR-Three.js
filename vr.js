@@ -11,13 +11,6 @@ function main() {
   renderer.xr.setReferenceSpaceType( 'local' );
   document.body.appendChild(VRButton.createButton(renderer));
 
-  const fov = 75;
-  const aspect = 2;  // the canvas default
-  const near = 0.1;
-  const far = 1000;
-  const camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
-  camera.position.set(0.2, 1.1 + 5.0, -0.65);
-
   const scene = new THREE.Scene();
 
   {
@@ -27,6 +20,18 @@ function main() {
     light.position.set(-1, 2, 4);
     scene.add(light);
   }
+
+  const fov = 75;
+  const aspect = 2;  // the canvas default
+  const near = 0.1;
+  const far = 1000;
+  const camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
+  // camera.position.set(0.2, 1.1, -0.65);
+
+  const _camera = new THREE.Object3D();
+  _camera.position.set(0.2, 1.1, -0.65);
+  scene.add(_camera);
+  _camera.add(camera);
 
   //add skybox
   var skybox = new THREE.SphereGeometry( 500, 60, 40 );

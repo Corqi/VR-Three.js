@@ -82,7 +82,7 @@ function main() {
         c.castShadow = true;
       });
       gltf.scene.scale.set(1,1,1);
-      gltf.scene.position.set(-0.2, -1.1, 0.65);
+      gltf.scene.position.set(-0.2, -1.1 + 2.0, 0.65);
       scene.add(gltf.scene);
     });
   }

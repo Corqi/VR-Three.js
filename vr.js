@@ -15,12 +15,7 @@ function main() {
   const near = 0.1;
   const far = 1000;
   const camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
-  // camera.position.set(0.2, 1.1, -0.65);
-
-  const _camera = new THREE.Group();
-  _camera.add(camera);
-  _camera.position.set(0.2, 1.1, -0.65);
-
+  //camera.position.set(0.2, 1.1, -0.65);
 
   const scene = new THREE.Scene();
 
@@ -32,8 +27,6 @@ function main() {
     scene.add(light);
   }
 
-  scene.add(_camera);
-  
   //add skybox
   var skybox = new THREE.SphereGeometry( 500, 60, 40 );
   skybox.scale( - 1, 1, 1 );
@@ -89,7 +82,7 @@ function main() {
         c.castShadow = true;
       });
       gltf.scene.scale.set(1,1,1);
-      gltf.scene.position.y = 0.01;
+      gltf.scene.position.set(-0.2, -1.1, 0.65);
       scene.add(gltf.scene);
     });
   }

@@ -8,7 +8,7 @@ function main() {
   const canvas = document.querySelector('#c');
   const renderer = new THREE.WebGLRenderer({canvas});
   renderer.xr.enabled = true;
-  renderer.xr.setReferenceSpaceType( 'viewer' );
+  renderer.xr.setReferenceSpaceType( 'local' );
   document.body.appendChild(VRButton.createButton(renderer));
 
   const fov = 75;

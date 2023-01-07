@@ -75,6 +75,7 @@ function main() {
     time *= 0.001;
     
     // controls.update(0.001);
+    renderer.xr.getCamera().position.y += 0.001;
 
     if (resizeRendererToDisplaySize(renderer)) {
       const canvas = renderer.domElement;

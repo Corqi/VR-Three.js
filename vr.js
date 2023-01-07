@@ -13,13 +13,25 @@ function main() {
 
   const scene = new THREE.Scene();
 
-  {
-    const color = 0xFFFFFF;
-    const intensity = 1;
-    const light = new THREE.DirectionalLight(color, intensity);
-    light.position.set(-1, 2, 4);
-    scene.add(light);
-  }
+  //light
+  const color = 0xFFFFFF;
+  const intensity = 0.5;
+
+  //main light
+  const light = new THREE.DirectionalLight(color, intensity);
+  light.position.set(-40, 30, 1);
+  light.castShadow = true;
+  scene.add(light);
+
+  const light2 = new THREE.DirectionalLight(color, intensity);
+  light2.position.set(-40, -30, 1);
+  light2.castShadow = true;
+  scene.add(light2);
+
+  //ambient light
+  const ambientLight = new THREE.AmbientLight(0x303030, 0.5);
+  scene.add(ambientLight);
+  
 
   const fov = 75;
   const aspect = 2;  // the canvas default
@@ -86,6 +98,7 @@ function main() {
     loader.load('./resources/train.gltf', (gltf) => {
       gltf.scene.traverse(c => {
         c.castShadow = true;
+        c.receiveShadow = true;
       });
       gltf.scene.scale.set(1,1,1);
       scene.add(gltf.scene);

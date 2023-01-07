@@ -47,7 +47,18 @@ function main() {
   // const controls = new FirstPersonControls(camera, renderer.domElement);
   // controls.lookSpeed = 0.5;
   // controls.movementSpeed = 0.0;
-  
+
+  renderer.xr.addEventListener('sessionstart', () => {
+
+                renderer.xr.getCamera().position.copy( camera.position);
+
+                renderer.xr.getCamera().lookAt( camera.target );
+
+                //camera.position.copy(renderer.xr.getCamera().position);
+
+                console.log("pos", renderer.xr.getCamera().position);
+
+            });
     
   function resizeRendererToDisplaySize(renderer) {
     const canvas = renderer.domElement;
@@ -83,7 +94,6 @@ function main() {
         c.castShadow = true;
       });
       gltf.scene.scale.set(1,1,1);
-      gltf.scene.position.y = 0.01;
       scene.add(gltf.scene);
     });
   }

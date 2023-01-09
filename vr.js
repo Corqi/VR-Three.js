@@ -1,17 +1,18 @@
-import * as THREE from 'three';
-import {VRButton} from 'three/addons/webxr/VRButton.js';
+import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.118.1/build/three.module.js';
+import {VRButton} from 'https://cdn.jsdelivr.net/npm/three@0.118.1/examples/jsm/webxr/VRButton.js';
 import {GLTFLoader} from 'https://cdn.jsdelivr.net/npm/three@0.118.1/examples/jsm/loaders/GLTFLoader.js';
-
 import {OrbitControls} from 'https://cdn.jsdelivr.net/npm/three@0.118/examples/jsm/controls/OrbitControls.js';
 
 function main() {
   const canvas = document.querySelector('#c');
   const renderer = new THREE.WebGLRenderer({canvas});
+  //enable webXR
   renderer.xr.enabled = true;
   renderer.xr.setReferenceSpaceType( 'local' );
   document.body.appendChild(VRButton.createButton(renderer));
 
   const scene = new THREE.Scene();
+
 
   //light
   const color = 0xFFFFFF;
@@ -32,7 +33,7 @@ function main() {
   const ambientLight = new THREE.AmbientLight(0x4B4B4B, 0.5);
   scene.add(ambientLight);
   
-
+  //camera
   const fov = 75;
   const aspect = 2;  // the canvas default
   const near = 0.1;

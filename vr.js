@@ -1,17 +1,24 @@
-import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.118.1/build/three.module.js';
-import {VRButton} from 'https://cdn.jsdelivr.net/npm/three@0.118.1/examples/jsm/webxr/VRButton.js';
-import {GLTFLoader} from 'https://cdn.jsdelivr.net/npm/three@0.118.1/examples/jsm/loaders/GLTFLoader.js';
-import {OrbitControls} from 'https://cdn.jsdelivr.net/npm/three@0.118/examples/jsm/controls/OrbitControls.js';
+import * as THREE from 'three';
+import {VRButton} from 'three/addons/webxr/VRButton.js';
+import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
+import {OrbitControls} from 'three/addons/controls/OrbitControls.js';
 
-function main() {
+let camera;
+let renderer;
+let scene;
+
+init();
+animate();
+
+function init() {
   const canvas = document.querySelector('#c');
-  const renderer = new THREE.WebGLRenderer({canvas});
+  renderer = new THREE.WebGLRenderer({canvas});
   //enable webXR
   renderer.xr.enabled = true;
   renderer.xr.setReferenceSpaceType( 'local' );
   document.body.appendChild(VRButton.createButton(renderer));
 
-  const scene = new THREE.Scene();
+  scene = new THREE.Scene();
 
 
   //light
@@ -38,7 +45,7 @@ function main() {
   const aspect = 2;  // the canvas default
   const near = 0.1;
   const far = 1000;
-  const camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
+  camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
 
   //fix bug where camera pos does not match vr camera pos
   const _camera = new THREE.Object3D();
@@ -68,43 +75,43 @@ function main() {
   controls.rotateSpeed *= -1;
   controls.target.set(0.2, 1.1, -0.7001);
   controls.update();
+}
     
-  function resizeRendererToDisplaySize(renderer) {
-    const canvas = renderer.domElement;
-    const width = canvas.clientWidth;
-    const height = canvas.clientHeight;
-    const needResize = canvas.width !== width || canvas.height !== height;
-    if (needResize) {
-      renderer.setSize(width, height, false);
-    }
-    return needResize;
+function resizeRendererToDisplaySize(renderer) {
+  const canvas = renderer.domElement;
+  const width = canvas.clientWidth;
+  const height = canvas.clientHeight;
+  const needResize = canvas.width !== width || canvas.height !== height;
+  if (needResize) {
+    renderer.setSize(width, height, false);
   }
-
-  function render(time) {
-    time *= 0.001;
-    
-    if (resizeRendererToDisplaySize(renderer)) {
-      const canvas = renderer.domElement;
-      camera.aspect = canvas.clientWidth / canvas.clientHeight;
-      camera.updateProjectionMatrix();
-    }
-
-    renderer.render(scene, camera);
-  }
-
-  renderer.setAnimationLoop(render);
-
-  function loadModel() {
-    const loader = new GLTFLoader();
-    loader.load('./resources/train.gltf', (gltf) => {
-      gltf.scene.traverse(c => {
-        c.castShadow = true;
-        c.receiveShadow = true;
-      });
-      gltf.scene.scale.set(1,1,1);
-      scene.add(gltf.scene);
-    });
-  }
+  return needResize;
 }
 
-main();
+function render(time) {
+  time *= 0.001;
+  
+  if (resizeRendererToDisplaySize(renderer)) {
+    const canvas = renderer.domElement;
+    camera.aspect = canvas.clientWidth / canvas.clientHeight;
+    camera.updateProjectionMatrix();
+  }
+
+  renderer.render(scene, camera);
+}
+
+function animate() {
+  renderer.setAnimationLoop( render );
+}
+
+function loadModel() {
+  const loader = new GLTFLoader();
+  loader.load('./resources/train.gltf', (gltf) => {
+    gltf.scene.traverse(c => {
+      c.castShadow = true;
+      c.receiveShadow = true;
+    });
+    gltf.scene.scale.set(1,1,1);
+    scene.add(gltf.scene);
+  });
+}
